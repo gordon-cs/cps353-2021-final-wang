@@ -1,0 +1,40 @@
+body{
+  text-align: center
+}
+.content{
+  width:90%;
+  margin: 0px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  font-size: 30px;
+  /* text-shadow: 1.5px 1.5px black; */
+  align-items: center;
+
+}
+.text{
+  border-color: red;
+  border: 10px solid red;
+  border-radius: 5px;
+  
+}
+.textBox{
+  height: 100px;
+}
+#bookName{
+  width: 60px;
+}
+#chapter{
+  width: 20px;
+}
+#verse{
+  width: 20px;
+}
+#search{
+  margin-left: 20px;
+  height: 30px;
+  width:100px
+}
