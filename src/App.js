@@ -4,15 +4,17 @@ import Axios from 'axios';
 
 export default class App extends Component{
   url = "https://labs.bible.org/api/?passage=";
+  hi = "https://cps353-2021-cloud-wang-5clehebsjq-uc.a.run.app/"
 
-  state = {data: null};
+  state = {data: null,data1: null};
 
   componentDidMount(){
     this.getData('Hebrews',12,1);
+    this.getData1('Eric');
   }
 
   getData(book,chapter,verse) {
-    if(verse===null) {
+    if(verse.length===0) {
       Axios.get(this.url+book+"%20"+chapter+"&type=json").then((abc) => {
         console.log(abc);
 
@@ -26,65 +28,54 @@ export default class App extends Component{
       });
     }
   }
-  
-  showContent(){
-    return this.state.data.map((verse, index) => {
-      return (
-      <div key={index} className="verse">
-        <span>{verse.bookname + ' '+
-              + verse.chapter + ':'+
-               verse.verse  }</span>
-        <br></br>
-        <span> {verse.text}</span>
-      </div> 
-      );
+  getData1(name){
+    Axios.get(this.hi+name).then((hi) => {
+      console.log(hi);
+
+      this.setState({ data1: hi.data})
     });
   }
   
-  // showButton(index){
-  //   if(true) {
-  //     return  (<button id="front" class="textBox" onClick={()=> this.getData(this.state.data[0].bookname,
-  //     this.state.data[0].chapter-1,
-  //     this.state.data[0].verse)}> 
-  //     index
-  //     </button>);
-      
-  //   } else {
-  //     return
-  //      <button id="front" class="textBox" > 
-  //     index
-  //     </button>;
-  //   }
-  // }
-
-  showPre(){
-    if(true) {
-      return  (<button id="pre" class="textBox" onClick={()=> this.getData(this.state.data[0].bookname,
-      this.state.data[0].chapter-1,
-      this.state.data[0].verse)}> 
-      PRE
-      </button>);
-      
+  showContent(){
+    if(this.state.data.length > 1) {
+    
+      return (
+        <div className="verse">
+          <span>{this.state.data[0].bookname + ' '+
+                + this.state.data[0].chapter + ':'+
+                this.state.data[0].verse + '-' + this.state.data.length}</span>
+          <br></br>
+          <span> {this.state.data.map((verses,index)=>{return(<span key={index}> <b>{index + 1 + ' '}</b>{verses.text}</span>);})}</span>
+      </div>  
+      );
+  
     } else {
-      return
-       <button id="front" class="textBox" > 
-      NEXT
-      </button>;
+      return this.state.data.map((verse, index) => {
+        return (
+        <div key={index} className="verse">
+          <span>{verse.bookname + ' '+
+                + verse.chapter + ':'+
+                verse.verse  }</span>
+          <br></br>
+          <span> {verse.text}</span>
+        </div> 
+        );
+      });
     }
   }
-
-  showNext(){
+  //number is the amount of changing page. 
+  showButton(buttonName,number){
     if(true) {
-      return  (<button id="next" class="textBox" onClick={()=> this.getData(this.state.data[0].bookname,
-      this.state.data[0].chapter-(-1),
+      return  (<button id={buttonName} class="textBox" onClick={()=> this.getData(this.state.data[0].bookname,
+      this.state.data[0].chapter-number,
       this.state.data[0].verse)}> 
-      NEXT
+      {buttonName}
       </button>);
       
     } else {
       return
        <button id="front" class="textBox" > 
-      NEXT
+      index
       </button>;
     }
   }
@@ -95,25 +86,22 @@ export default class App extends Component{
     return (
       <div class="main">
         <div class="text"> 
-          {this.showPre()}
+          {this.showButton("PRE",1)}
             <input type="text" id="bookName" class="textBox"/>
             <span> </span>
             <input type="text" id="chapter" class="textBox" />
             <span>:</span>
             <input type="text" id="verse" class="textBox"/>
     
-          <button id="search" class="textBox" onClick={()=> this.getData(document.getElementById("bookName").value,
-                                            document.getElementById("chapter").value,
-                                            document.getElementById("verse").value)}> 
-          Search
-          </button>
-          <button id="front" class="textBox" onClick={()=> this.getData(this.state.data[0].bookname,
-          this.state.data[0].chapter,
-          this.state.data[0].verse-5)}> 
-          Full Chapter
-          </button>
-          {this.showNext()}
+            <button id="search" class="textBox" onClick={()=> this.getData(document.getElementById("bookName").value,document.getElementById("chapter").value,document.getElementById("verse").value)}> 
+            Search
+            </button>
+            <button id="front" class="textBox" onClick={()=> this.getData(this.state.data[0].bookname,this.state.data[0].chapter,this.state.data[0].verse-5)}> 
+            Full Chapter
+            </button>
+            {this.showButton("NEXT",-1)}
         </div>
+        <div class="hi"> </div>
         <div class="content">{this.showContent()}</div>
       </div>
     );
