@@ -14,7 +14,7 @@ export default class App extends Component{
   }
 
   getData(book,chapter,verse) {
-    if(verse.length===0) {
+    if(verse.length===0 || verse ==='0') {
       Axios.get(this.url+book+"%20"+chapter+"&type=json").then((abc) => {
         console.log(abc);
 
@@ -66,9 +66,9 @@ export default class App extends Component{
   //number is the amount of changing page. 
   showButton(buttonName,number){
     if(true) {
-      return  (<button id={buttonName} class="textBox" onClick={()=> this.getData(this.state.data[0].bookname,
+      return  (<button id={buttonName} class="button" onClick={()=> this.getData(this.state.data[0].bookname,
       this.state.data[0].chapter-number,
-      this.state.data[0].verse)}> 
+      '0')}> 
       {buttonName}
       </button>);
       
@@ -85,20 +85,22 @@ export default class App extends Component{
 
     return (
       <div class="main">
-        <div class="text"> 
-          {this.showButton("PRE",1)}
+        <div class="menu"> 
+            <input type="text" id="userName" class="textBox" placeholder="enter name"/>
+            <span> Enter the scripture you want to look up:</span>
             <input type="text" id="bookName" class="textBox"/>
             <span> </span>
             <input type="text" id="chapter" class="textBox" />
             <span>:</span>
             <input type="text" id="verse" class="textBox"/>
     
-            <button id="search" class="textBox" onClick={()=> this.getData(document.getElementById("bookName").value,document.getElementById("chapter").value,document.getElementById("verse").value)}> 
+            <button id="search" class="button" onClick={()=> this.getData(document.getElementById("bookName").value,document.getElementById("chapter").value,document.getElementById("verse").value)}> 
             Search
             </button>
-            <button id="front" class="textBox" onClick={()=> this.getData(this.state.data[0].bookname,this.state.data[0].chapter,this.state.data[0].verse-5)}> 
+            <button id="front" class="button" onClick={()=> this.getData(this.state.data[0].bookname,this.state.data[0].chapter,'0')}> 
             Full Chapter
             </button>
+            {this.showButton("PRE",1)}
             {this.showButton("NEXT",-1)}
         </div>
         <div class="hi"> </div>
