@@ -5,41 +5,42 @@ body{
   width:80%;
   margin-left: 130px;
   margin-top: 20px;
-  left: 50%;
-
+  text-align: left;
   font-family: Comic Sans MS, Comic Sans, cursive;
   font-size: 20px;
   /* text-shadow: 1.5px 1.5px black; */
   align-items: center;
 
 }
+
 .menu{
   border-color: red;
-  border: 5px solid red;
+  border: 5px solid #f90052;
   border-radius: 5px;
-  
 }
+
 .textBox{
   height: 20px;
-  margin-left: 5px;
-  border: 2px solid #f44336;
+  margin: 4px 3px;
+  border: 2px solid #b3e7dc;
   border-radius: 5px;
-  
+  font-family: Comic Sans MS, Comic Sans, cursive;
 }
 
 #userName{
   width: 70px;
+  border: 2px solid red;
 }
 
 #bookName{
-  width: 60px;
+  width: 70px;
 }
 #chapter{
-  width: 30px;
+  width: 40px;
 }
 #verse{
   margin-left: 0px;
-  width: 30px;
+  width: 40px;
 }
 
 .button {
@@ -51,8 +52,9 @@ body{
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+  font-size: 14px;
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  margin: 4px 3px;
   transition-duration: 0.4s;
   cursor: pointer;
 }
@@ -61,6 +63,6 @@ body{
   color: white;
 }
 .textBox:hover{
-  background-color: #f44336;
+  background-color: #b3e7dc;
   color: white;
 }
