@@ -134,8 +134,8 @@ export default class App extends Component{
             </button>
         </div >
         {this.showGreeting()}
-        {this.showButton("⮜",1)}
-        {this.showButton("⮞",-1)}
+        {this.showButton("˂",1)}
+        {this.showButton("˃",-1)}
         <div class="content">{this.showContent()}</div>
       </div>
     );
