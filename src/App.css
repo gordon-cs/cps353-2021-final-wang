@@ -12,12 +12,12 @@ body{
   align-items: center;
 }
 #greeting{
-  margin-top: 50px;
+  margin-top: 60px;
 }
 .menu{
   background-color: white;
   width: 98%;
-  top: 0px;
+  top: 10px;
   position: fixed;
   border-color: red;
   border: 5px solid #f90052;
@@ -109,4 +109,8 @@ body{
   right: 20px
 }
 
-
+.verse > * :hover {
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+}

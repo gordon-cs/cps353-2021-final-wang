@@ -48,7 +48,9 @@ export default class App extends Component{
       this.setState({ greetingData: hi.data})
     });
   }
-
+  function(){
+    
+  }
   // Show the greating result on html
   showGreeting(){
     return(
@@ -67,7 +69,7 @@ export default class App extends Component{
                 + this.state.data[0].chapter + ':'+
                 this.state.data[0].verse + '-' + this.state.data.length}</span>
           <br></br>
-          <span> {this.state.data.map((verses,index)=>{return(<span key={index}> <b>{index + 1 + ' '}</b>{verses.text}</span>);})}</span>
+          <span> {this.state.data.map((verses,index)=>{return(<span key={index}> <sup>{index + 1 + ' '}</sup>{verses.text}</span>);})}</span>
       </div>  
       );
       // Single verses case
