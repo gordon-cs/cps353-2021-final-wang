@@ -6,7 +6,7 @@ export default class App extends Component{
   constructor(props){
     super(props);
 
-    this.state = {data: null, greetingData: null, name: ''};
+    this.state = {data: null, greetingData: null, name: '', flip: 'disable'};
 
     this.url = "https://labs.bible.org/api/?passage=";
     this.hi = "https://cps353-2021-cloud-wang-5clehebsjq-uc.a.run.app";
@@ -26,17 +26,17 @@ export default class App extends Component{
   getVerses(book,chapter,verse) {
     // Full chapter case
     if(verse.length===0 || verse ==='0') {
-      Axios.get(this.url+book+"%20"+chapter+"&type=json").then((abc) => {
-        console.log(abc);
+      Axios.get(this.url+book+"%20"+chapter+"&type=json").then((verses) => {
+        console.log(verses);
 
-        this.setState({ data: abc.data})
+        this.setState({ data: verses.data})
       });
       // Single verse case
     } else {
-      Axios.get(this.url+book+"%20"+chapter+':'+verse+"&type=json").then((abc) => {
-        console.log(abc);
+      Axios.get(this.url+book+"%20"+chapter+':'+verse+"&type=json").then((verses) => {
+        console.log(verses);
 
-        this.setState({ data: abc.data})
+        this.setState({ data: verses.data})
       });
     }
   }
@@ -48,11 +48,11 @@ export default class App extends Component{
       this.setState({ greetingData: hi.data})
     });
   }
-  function(){
-    
-  }
+
   // Show the greating result on html
   showGreeting(){
+    if (this.state.greetingData == '') return<div>Processing....</div>;
+
     return(
       <div class="content" id="greeting">{this.state.greetingData}</div>
     );
@@ -69,7 +69,7 @@ export default class App extends Component{
                 + this.state.data[0].chapter + ':'+
                 this.state.data[0].verse + '-' + this.state.data.length}</span>
           <br></br>
-          <span> {this.state.data.map((verses,index)=>{return(<span key={index}> <sup>{index + 1 + ' '}</sup>{verses.text}</span>);})}</span>
+          <span> {this.state.data.map((verses,index)=>{return(<span key={index} onClick={()=>this.style={testDecoration: 'underline'}}> <sup>{index + 1 + ' '}</sup>{verses.text}</span>);})}</span>
       </div>  
       );
       // Single verses case
@@ -114,27 +114,79 @@ export default class App extends Component{
     this.getGreating(e.target.value);
 }
 
+  changeFlipState(){
+    if(this.state.flip == 'disable'){
+    this.setState({flip: 'active'});
+    } else {
+      this.setState({flip: 'disable'});
+    }
+  }
+
+  addTextField(){
+    return(
+      <div>
+      <input type="text" id="userName" class="textBox" placeholder="enter your name" onChange={ this.setUserName } value={ this.state.name } />
+      <input type="text" id="bookName" class="textBox" placeholder="BookName"/>
+      <span> </span>
+      <input type="text" id="chapter" class="textBox" placeholder="chapter"/>
+      <span>:</span>
+      <input type="text" id="verse" class="textBox" placeholder="verse"/>
+
+      <button id="search" class="button" onClick={()=> this.getVerses(document.getElementById("bookName").value,document.getElementById("chapter").value,document.getElementById("verse").value)}> 
+      Search
+      </button>
+      </div>
+    );
+  }
+
   // The layout of page
   render(){
     if (!this.state.data) return<div>Sorry can't find the verse.</div>;
 
     return (
       <div class="main">
-        <div class="menu"> 
-            <input type="text" id="userName" class="textBox" placeholder="enter your name" onChange={ this.setUserName } value={ this.state.name } />
-            <input type="text" id="bookName" class="textBox" placeholder="BookName"/>
-            <span> </span>
-            <input type="text" id="chapter" class="textBox" placeholder="chapter"/>
-            <span>:</span>
-            <input type="text" id="verse" class="textBox" placeholder="verse"/>
-    
-            <button id="search" class="button" onClick={()=> this.getVerses(document.getElementById("bookName").value,document.getElementById("chapter").value,document.getElementById("verse").value)}> 
-            Search
-            </button>
-            <button id="fullChapter" class="button" onClick={()=> this.getVerses(this.state.data[0].bookname,this.state.data[0].chapter,'0')}> 
-            Full Chapter
-            </button>
+         <div class="flip-box" id={this.state.flip}>
+          <div class="flip-box-inner">
+            <div class="flip-box-front"> 
+              <input type="text" id="userName" class="textBox" placeholder="enter your name" onChange={ this.setUserName } value={ this.state.name } />
+              <input type="text" id="bookName" class="textBox" placeholder="BookName"/>
+              <span> </span>
+              <input type="text" id="chapter" class="textBox" placeholder="chapter"/>
+              <span>:</span>
+              <input type="text" id="verse" class="textBox" placeholder="verse"/>
+      
+              <button id="search" class="button" onClick={()=> this.getVerses(document.getElementById("bookName").value,document.getElementById("chapter").value,document.getElementById("verse").value)}> 
+              Search
+              </button>
+              <button id="fullChapter" class="button" onClick={()=> this.getVerses(this.state.data[0].bookname,this.state.data[0].chapter,'0')}> 
+              Full Chapter
+              </button>
+            
+              <button onClick={()=> this.changeFlipState()}>Flip</button>
+            </div>
+            <div class="flip-box-back">   
+              <input type="text" id="bookName" class="textBox" placeholder="BookName"/>
+              <span> </span>
+              <input type="text" id="chapter" class="textBox" placeholder="chapter"/>
+              <span>:</span>
+              <input type="text" id="verse" class="textBox" placeholder="verse"/>
+              
+              <input type="text" id="bookName" class="textBox" placeholder="BookName"/>
+              <span> </span>
+              <input type="text" id="chapter" class="textBox" placeholder="chapter"/>
+              <span>:</span>
+              <input type="text" id="verse" class="textBox" placeholder="verse"/>
+      
+              <button id="search" class="button" onClick={()=> this.getVerses(document.getElementById("bookName").value,document.getElementById("chapter").value,document.getElementById("verse").value)}> 
+              Search
+              </button>
+
+              <button onClick={()=> this.addTextField()}>Add</button>
+              <button onClick={()=> this.changeFlipState()}>Flip</button>
+            </div>
+          </div>
         </div>
+       
         {this.showGreeting()}
         {this.showButton("˂",1)}
         {this.showButton("˃",-1)}

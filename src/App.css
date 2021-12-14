@@ -1,3 +1,50 @@
+/*flip-box part code*/
+.flip-box {
+ position: fixed;
+ width: 98%;
+ top: 10px;
+}
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+#active:hover .flip-box-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  height: 35px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-box-front {
+  background-color: white;
+  width: 98%;
+  top: 10px;
+  position: fixed;
+  border-color: red;
+  border: 5px solid #f90052;
+  border-radius: 5px;
+}
+
+.flip-box-back {
+  background-color: white;
+  width: 98%;
+  top: 10px;
+  position: fixed;
+  border-color: red;
+  border: 5px solid #f90052;
+  border-radius: 5px;
+  transform: rotateY(180deg);
+}
+
+/*main*/
 body{
   text-align: center
 }
@@ -12,7 +59,7 @@ body{
   align-items: center;
 }
 #greeting{
-  margin-top: 60px;
+  margin-top: 70px;
 }
 .menu{
   background-color: white;
@@ -114,3 +161,6 @@ body{
   color: white;
   cursor: pointer;
 }
+.verse > * :active, .verse > * :checked {
+  text-decoration: underline;
+} 
