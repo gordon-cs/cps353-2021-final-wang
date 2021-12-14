@@ -86,13 +86,13 @@ body{
   border: 2px solid red;
 }
 
-#bookName{
+#bookName,#bookName1,#bookName2{
   width: 70px;
 }
-#chapter{
+#chapter,#chapter1,#chapter2 {
   width: 50px;
 }
-#verse{
+#verse,#verse1,#verse2{
   margin-left: 0px;
   width: 50px;
 }
@@ -161,6 +161,8 @@ body{
   color: white;
   cursor: pointer;
 }
-.verse > * :active, .verse > * :checked {
+
+.chosen {
   text-decoration: underline;
-} 
+  color: #f90052;
+}
