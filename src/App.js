@@ -52,7 +52,7 @@ export default class App extends Component{
   // Show the greating result on html
   showGreeting(){
     return(
-      <div class="content">{this.state.greetingData}</div>
+      <div class="content" id="greeting">{this.state.greetingData}</div>
     );
   }
 
@@ -132,7 +132,7 @@ export default class App extends Component{
             <button id="fullChapter" class="button" onClick={()=> this.getVerses(this.state.data[0].bookname,this.state.data[0].chapter,'0')}> 
             Full Chapter
             </button>
-        </div >
+        </div>
         {this.showGreeting()}
         {this.showButton("˂",1)}
         {this.showButton("˃",-1)}

@@ -10,10 +10,15 @@ body{
   font-size: 20px;
   /* text-shadow: 1.5px 1.5px black; */
   align-items: center;
-
 }
-
+#greeting{
+  margin-top: 50px;
+}
 .menu{
+  background-color: white;
+  width: 98%;
+  top: 0px;
+  position: fixed;
   border-color: red;
   border: 5px solid #f90052;
   border-radius: 5px;
@@ -93,6 +98,7 @@ body{
   background-color: #f44336;
   border: 4px solid #f44336;
   color: white;
+  cursor: pointer;
 }
 
 #˂{
@@ -102,3 +108,5 @@ body{
 #˃{
   right: 20px
 }
+
+
